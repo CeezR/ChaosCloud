@@ -3,7 +3,7 @@ package dev.cesar.backend;
 import javax.persistence.*;
 
 @Entity
-public class File {
+public class MediaFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

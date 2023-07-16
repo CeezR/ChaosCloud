@@ -2,7 +2,6 @@ package dev.cesar.backend;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-class FileServiceTest {
+class MediaMediaFileServiceTest {
 
     @Autowired
-    private FileService fileService;
+    private MediaFileService mediaFileService;
 
     private static final Path staticPath = Paths.get("src/main/resources/static");
     private static final Path testFilesPath = Paths.get("src/test/resources/testFiles");
@@ -46,21 +45,21 @@ class FileServiceTest {
         byte[] content = Files.readAllBytes(sourceFilePath);
 
         // Store the file
-        fileService.store(fileName, content);
+        mediaFileService.store(fileName, content);
 
         // Assert the file exists
-        assertTrue(fileService.exists(fileName));
+        assertTrue(mediaFileService.exists(fileName));
 
         // Read the file
-        byte[] readContent = fileService.read(fileName);
+        byte[] readContent = mediaFileService.read(fileName);
 
         // Assert the file content is as expected
         assertArrayEquals(content, readContent);
 
         // Delete the file
-        fileService.delete(fileName);
+        mediaFileService.delete(fileName);
 
         // Assert the file no longer exists
-        assertFalse(fileService.exists(fileName));
+        assertFalse(mediaFileService.exists(fileName));
     }
 }

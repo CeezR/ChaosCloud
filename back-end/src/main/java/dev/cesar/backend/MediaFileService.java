@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class FileService {
+public class MediaFileService {
 
     private final Path staticPath = Paths.get("src/main/resources/static");
 
