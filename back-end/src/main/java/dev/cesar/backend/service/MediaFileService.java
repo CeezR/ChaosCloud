@@ -1,4 +1,4 @@
-package dev.cesar.backend;
+package dev.cesar.backend.service;
 
 import org.springframework.stereotype.Service;
 

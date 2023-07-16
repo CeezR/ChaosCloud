@@ -1,5 +1,6 @@
-package dev.cesar.backend;
+package dev.cesar.backend.repository;
 
+import dev.cesar.backend.MediaFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
