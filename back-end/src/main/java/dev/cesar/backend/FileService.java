@@ -12,15 +12,15 @@ public class FileService {
 
     private final Path staticPath = Paths.get("src/main/resources/static");
 
-    public Path store(String fileName, String content) throws IOException {
+    public Path store(String fileName, byte[] content) throws IOException {
         Path filePath = staticPath.resolve(fileName);
-        Files.write(filePath, content.getBytes());
+        Files.write(filePath, content);
         return filePath;
     }
 
-    public String read(String fileName) throws IOException {
+    public byte[] read(String fileName) throws IOException {
         Path filePath = staticPath.resolve(fileName);
-        return new String(Files.readAllBytes(filePath));
+        return Files.readAllBytes(filePath);
     }
 
     public void delete(String fileName) throws IOException {

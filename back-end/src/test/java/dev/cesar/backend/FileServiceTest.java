@@ -3,6 +3,10 @@ package dev.cesar.backend;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.FileSystemUtils;
 
 import java.io.IOException;
@@ -12,43 +16,51 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@SpringBootTest
 class FileServiceTest {
 
-    // Path to the static directory
+    @Autowired
+    private FileService fileService;
+
     private static final Path staticPath = Paths.get("src/main/resources/static");
+    private static final Path testFilesPath = Paths.get("src/test/resources/testFiles");
 
     @BeforeEach
     void setUp() throws IOException {
+        // Ensure the static directory exists
         Files.createDirectories(staticPath);
     }
 
     @AfterEach
     void tearDown() {
+        // Clean up the static directory
         FileSystemUtils.deleteRecursively(staticPath.toFile());
     }
 
-    @Test
-    void testFileStorageAndDeletion() throws IOException {
-        // The test file will be named 'testFile.txt'
-        Path testFilePath = staticPath.resolve("testFile.txt");
+    @ParameterizedTest
+    @ValueSource(strings = {"test.jpg", "test.png", "test.pdf", "test.docx"})
+    void testFileStorageAndDeletion(String fileName) throws IOException {
+        // Read the test file
+        Path sourceFilePath = testFilesPath.resolve(fileName);
+        byte[] content = Files.readAllBytes(sourceFilePath);
 
-        // Write to the file
-        String testFileContent = "Hello, Chaos Cloud!";
-        Files.write(testFilePath, testFileContent.getBytes());
+        // Store the file
+        fileService.store(fileName, content);
 
         // Assert the file exists
-        assertTrue(Files.exists(testFilePath));
+        assertTrue(fileService.exists(fileName));
 
         // Read the file
-        String readContent = new String(Files.readAllBytes(testFilePath));
+        byte[] readContent = fileService.read(fileName);
 
         // Assert the file content is as expected
-        assertEquals(testFileContent, readContent);
+        assertArrayEquals(content, readContent);
 
         // Delete the file
-        Files.delete(testFilePath);
+        fileService.delete(fileName);
 
         // Assert the file no longer exists
-        assertFalse(Files.exists(testFilePath));
+        assertFalse(fileService.exists(fileName));
     }
 }
