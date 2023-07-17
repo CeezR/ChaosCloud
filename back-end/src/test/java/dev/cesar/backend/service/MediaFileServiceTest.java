@@ -21,7 +21,6 @@ class MediaFileServiceTest {
 
     @Autowired
     private MediaFileService mediaFileService;
-
     private static final Path staticPath = Paths.get("src/main/resources/static");
     private static final Path testFilesPath = Paths.get("src/test/resources/testFiles");
 

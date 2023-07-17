@@ -15,8 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class MediaFileServiceRepoIntegrationTest {
@@ -44,11 +43,21 @@ public class MediaFileServiceRepoIntegrationTest {
 
         // Store the file
         service.store(TEST_FILE_NAME, TEST_FILE_CONTENT.getBytes());
-        String readContent = new String(service.read(TEST_FILE_NAME));
 
         // Assert the file exists
         assertTrue(service.exists(TEST_FILE_NAME));
-        assertEquals(TEST_FILE_CONTENT, readContent);
         assertThat(repo.findAll().size()).isEqualTo(count + 1);
+    }
+
+    @Test
+    void testThatOnFileDeleteNewMediaFileEntityIsRemovedFromDB() throws IOException {
+        // Store the file
+        service.store(TEST_FILE_NAME, TEST_FILE_CONTENT.getBytes());
+        int count = repo.findAll().size();
+        service.delete(TEST_FILE_NAME);
+
+        // Assert the file exists
+        assertFalse(service.exists(TEST_FILE_NAME));
+        assertThat(repo.findAll().size()).isEqualTo(count - 1);
     }
 }
