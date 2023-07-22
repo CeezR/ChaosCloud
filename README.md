@@ -6,6 +6,7 @@
 This project serves as a learning exercise to gain proficiency in the following areas:
 - Next.js
 - Upload & download files to local storage
+- Upload & download files to Azure Blob Storage
 - Tailwind
 
 ## 🚀 Getting Started / Installation
