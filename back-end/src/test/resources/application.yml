@@ -1,3 +1,6 @@
+debug: true
+server:
+  port: 9999
 spring:
   #
   # Add appropriate configuration to seed the database here

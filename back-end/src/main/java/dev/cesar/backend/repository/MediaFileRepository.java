@@ -1,6 +1,6 @@
 package dev.cesar.backend.repository;
 
-import dev.cesar.backend.MediaFile;
+import dev.cesar.backend.model.MediaFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
@@ -22,5 +22,9 @@ public class MediaFileRepository {
 
     public List<MediaFile> findAll() {
         return Streamable.of(repo.findAll()).toList();
+    }
+
+    public void delete(MediaFile mediaFile) {
+        repo.delete(mediaFile);
     }
 }

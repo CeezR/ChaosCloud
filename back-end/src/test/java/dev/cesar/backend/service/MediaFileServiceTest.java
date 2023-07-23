@@ -1,5 +1,6 @@
 package dev.cesar.backend.service;
 
+import dev.cesar.backend.model.MediaFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,44 +22,50 @@ class MediaFileServiceTest {
 
     @Autowired
     private MediaFileService mediaFileService;
-    private static final Path staticPath = Paths.get("src/main/resources/static");
-    private static final Path testFilesPath = Paths.get("src/test/resources/testFiles");
+    private static final Path STATIC_PATH = Paths.get("src/test/resources/static");
+    private static final Path TEST_FILES_PATH = Paths.get("src/test/resources/testFiles");
 
     @BeforeEach
     void setUp() throws IOException {
         // Ensure the static directory exists
-        Files.createDirectories(staticPath);
+        Files.createDirectories(STATIC_PATH);
     }
 
     @AfterEach
     void tearDown() {
         // Clean up the static directory
-        FileSystemUtils.deleteRecursively(staticPath.toFile());
+        FileSystemUtils.deleteRecursively(STATIC_PATH.toFile());
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"test.jpg", "test.png", "test.pdf", "test.docx"})
-    void testFileStorageAndDeletion(String fileName) throws IOException {
-        // Read the test file
-        Path sourceFilePath = testFilesPath.resolve(fileName);
+    void testFileStorage(String fileName) throws IOException {
+        Path sourceFilePath = TEST_FILES_PATH.resolve(fileName);
         byte[] content = Files.readAllBytes(sourceFilePath);
+        MediaFile mediaFile = mediaFileService.store(fileName, content);
 
-        // Store the file
-        mediaFileService.store(fileName, content);
+        assertTrue(mediaFileService.exists(mediaFile));
+    }
 
-        // Assert the file exists
-        assertTrue(mediaFileService.exists(fileName));
+    @ParameterizedTest
+    @ValueSource(strings = {"test.jpg", "test.png", "test.pdf", "test.docx"})
+    void testFileDeletion(String fileName) throws IOException {
+        Path sourceFilePath = TEST_FILES_PATH.resolve(fileName);
+        byte[] content = Files.readAllBytes(sourceFilePath);
+        MediaFile mediaFile = mediaFileService.store(fileName, content);
+        mediaFileService.delete(mediaFile);
 
-        // Read the file
-        byte[] readContent = mediaFileService.read(fileName);
+        assertFalse(mediaFileService.exists(mediaFile));
+    }
 
-        // Assert the file content is as expected
+    @ParameterizedTest
+    @ValueSource(strings = {"test.jpg", "test.png", "test.pdf", "test.docx"})
+    void testFileContent(String fileName) throws IOException {
+        Path sourceFilePath = TEST_FILES_PATH.resolve(fileName);
+        byte[] content = Files.readAllBytes(sourceFilePath);
+        MediaFile mediaFile = mediaFileService.store(fileName, content);
+        byte[] readContent = mediaFileService.read(mediaFile);
+
         assertArrayEquals(content, readContent);
-
-        // Delete the file
-        mediaFileService.delete(fileName);
-
-        // Assert the file no longer exists
-        assertFalse(mediaFileService.exists(fileName));
     }
 }
