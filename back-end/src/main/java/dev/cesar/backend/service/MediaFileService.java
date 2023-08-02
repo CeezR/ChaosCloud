@@ -1,7 +1,7 @@
 package dev.cesar.backend.service;
 
 import dev.cesar.backend.model.MediaFile;
-import dev.cesar.backend.repository.MediaFileRepository;
+import dev.cesar.backend.repository.MediaFileDBRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 
 @Service
 public class MediaFileService {
-    private final MediaFileRepository repo;
+    private final MediaFileDBRepository repo;
     private final Path staticPath = Paths.get("src/main/resources/static");
 
-    public MediaFileService(MediaFileRepository repo) {
+    public MediaFileService(MediaFileDBRepository repo) {
         this.repo = repo;
     }
 

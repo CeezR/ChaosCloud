@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MediaFileRepository {
+public class MediaFileDBRepository {
     private final JPAFileRepository repo;
 
     @Autowired
-    public MediaFileRepository(JPAFileRepository repo) {
+    public MediaFileDBRepository(JPAFileRepository repo) {
         this.repo = repo;
     }
 

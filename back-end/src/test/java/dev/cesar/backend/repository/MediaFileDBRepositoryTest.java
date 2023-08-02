@@ -10,10 +10,10 @@ import java.util.regex.Pattern;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class MediaFileRepositoryTest {
+class MediaFileDBRepositoryTest {
 
     @Autowired
-    MediaFileRepository repo;
+    MediaFileDBRepository repo;
 
     @Test
     void saveShouldIncreaseTotalFilesInDBBy1() {
@@ -42,4 +42,6 @@ class MediaFileRepositoryTest {
         assertThat(mediaFile.getStorageFileName());
         assertThat(UUID_REGEX.matcher(mediaFile.getStorageFileName()).matches()).isTrue();
     }
+
+
 }

@@ -1,7 +1,7 @@
 package dev.cesar.backend.integration;
 
 import dev.cesar.backend.model.MediaFile;
-import dev.cesar.backend.repository.MediaFileRepository;
+import dev.cesar.backend.repository.MediaFileDBRepository;
 import dev.cesar.backend.service.MediaFileService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.FileSystemUtils;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class MediaFileServiceRepoIntegrationTest {
     @Autowired
     private MediaFileService service;
     @Autowired
-    private MediaFileRepository repo;
+    private MediaFileDBRepository repo;
     private static final String TEST_FILE_NAME = "testFile.txt";
     private static final String TEST_FILE_CONTENT = "Hello, Chaos Cloud!";
     private static final Path STATIC_PATH = Paths.get("src/test/resources/static");
