@@ -1,3 +1,7 @@
+static:
+  folder:
+    path: "src/main/resources/static"
+
 spring:
   h2:
     console:

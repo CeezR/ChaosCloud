@@ -2,20 +2,21 @@ package dev.cesar.backend.service;
 
 import dev.cesar.backend.model.MediaFile;
 import dev.cesar.backend.repository.MediaFileDBRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 public class MediaFileService {
     private final MediaFileDBRepository repo;
-    private final Path staticPath = Paths.get("src/main/resources/static");
+    private final Path staticPath;
 
-    public MediaFileService(MediaFileDBRepository repo) {
+    public MediaFileService(MediaFileDBRepository repo, @Value("${static.folder.path}") Path staticPath) {
         this.repo = repo;
+        this.staticPath = staticPath;
     }
 
     public MediaFile store(String fileName, byte[] content) throws IOException {
