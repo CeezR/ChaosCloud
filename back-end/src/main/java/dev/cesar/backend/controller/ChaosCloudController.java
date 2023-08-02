@@ -21,7 +21,6 @@ public class ChaosCloudController {
         this.service = service;
     }
 
-
     @PostMapping(path = "/files")
     public ResponseEntity<MediaFile> uploadFile(@RequestBody MediaFileRequestDTO requestDTO) {
         try {

@@ -1,7 +1,7 @@
 spring:
-  #
-  # Add appropriate configuration to seed the database here
-  #
+  h2:
+    console:
+      enabled: true
   sql:
     output:
       ansi:
