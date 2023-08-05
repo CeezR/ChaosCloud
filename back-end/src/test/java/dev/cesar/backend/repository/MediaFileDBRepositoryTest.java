@@ -54,6 +54,26 @@ class MediaFileDBRepositoryTest {
         assertThat(mediaFile.getCreatedDate()).isCloseTo(currentDate, 10000l);
     }
 
+    @Test
+    void successfulSaveShouldReturnMediaFileWithPostedByAsUnknownWhenNoNameIsProvided() {
+        Date currentDate = new Date();
+
+        MediaFile mediaFile = repo.save(new MediaFile("test", ".txt"));
+
+        assertThat(mediaFile).isNotNull();
+        assertThat(mediaFile.getPostedBy()).isEqualTo("unknown");
+    }
+
+    @Test
+    void successfulSaveShouldReturnMediaFileWithPostedBy() {
+        Date currentDate = new Date();
+
+        MediaFile mediaFile = repo.save(new MediaFile("test", ".txt", "John"));
+
+        assertThat(mediaFile).isNotNull();
+        assertThat(mediaFile.getPostedBy()).isEqualTo("John");
+    }
+
 
 
 
