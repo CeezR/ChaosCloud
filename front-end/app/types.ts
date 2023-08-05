@@ -3,5 +3,6 @@ type MediaFile = {
     fileName : string,
     postedBy : string,
     createdDate : string,
-    fileExtension : string 
+    fileExtension : string,
+    fileSize : number,
 }

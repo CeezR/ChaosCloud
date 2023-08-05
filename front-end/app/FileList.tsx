@@ -50,7 +50,7 @@ const FileList = ({ mediaFiles }: FileListProps) => {
                     {file.createdDate.substring(0, file.createdDate.lastIndexOf("T"))}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    5 KB
+                    {file.fileSize / 1024} KB
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
                     <button
