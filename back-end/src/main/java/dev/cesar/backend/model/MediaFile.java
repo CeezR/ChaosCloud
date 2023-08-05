@@ -14,7 +14,6 @@ public class MediaFile {
     private String fileName;
     @Column(name = "posted_by")
     private String postedBy = "unknown";
-
     @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -22,15 +21,24 @@ public class MediaFile {
     private String storageFileName = UUID.randomUUID().toString();
     @Column(name = "file_extension", nullable = false)
     private String fileExtension;
+    @Column(name = "file_size", nullable = false)
+    private long fileSize;
 
     public MediaFile(String fileName, String fileExtension) {
         this.fileName = fileName;
         this.fileExtension = fileExtension;
     }
+
     public MediaFile(String fileName, String fileExtension, String postedBy) {
         this.fileName = fileName;
         this.postedBy = postedBy;
         this.fileExtension = fileExtension;
+    }
+    public MediaFile(String fileName, String fileExtension, String postedBy, int fileSize) {
+        this.fileName = fileName;
+        this.postedBy = postedBy;
+        this.fileExtension = fileExtension;
+        this.fileSize = fileSize;
     }
 
     public MediaFile() {
@@ -57,6 +65,9 @@ public class MediaFile {
     }
     public String getFileExtension() {
         return fileExtension;
+    }
+    public long getFileSize() {
+        return fileSize;
     }
 
     @PrePersist

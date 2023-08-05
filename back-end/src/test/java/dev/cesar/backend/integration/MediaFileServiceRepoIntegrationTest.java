@@ -67,6 +67,13 @@ public class MediaFileServiceRepoIntegrationTest {
         assertTrue(matcher.find());
     }
 
+    @Test
+    void testThatOnFileSaveFileSizeIsCalculated() throws IOException {
+        // Store the file
+        MediaFile mediaFile = service.store(TEST_FILE_NAME, TEST_FILE_CONTENT.getBytes());
+        assertThat(mediaFile.getFileSize()).isEqualTo(TEST_FILE_CONTENT.getBytes().length);
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"test.jpg", "test.png", "test.pdf", "test.docx"})
     void testThatSavedFilePathIncludeCorrectType(String fileName) throws IOException {
