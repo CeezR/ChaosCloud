@@ -1,6 +1,6 @@
 type MediaFile = {
     id : number,
-    name : string,
+    fileName : string,
     postedBy : string,
     createdDate : string,
     fileExtension : string 

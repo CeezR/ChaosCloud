@@ -38,7 +38,7 @@ const FileList = ({ mediaFiles }: FileListProps) => {
               return (
                 <tr>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                    {file.name}
+                    {file.fileName.substring(0, file.fileName.lastIndexOf("."))}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     {file.fileExtension}
@@ -47,7 +47,7 @@ const FileList = ({ mediaFiles }: FileListProps) => {
                     {file.postedBy}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {file.createdDate}
+                    {file.createdDate.substring(0, file.createdDate.lastIndexOf("T"))}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     5 KB

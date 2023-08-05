@@ -61,7 +61,7 @@ class ChaosCloudControllerTest {
 
         ResponseEntity<MediaFile> response = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(requestDTO), MediaFile.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getFileName()).isEqualTo("test");
+        assertThat(response.getBody().getFileName()).isEqualTo("test.pdf");
     }
 
     @Test
