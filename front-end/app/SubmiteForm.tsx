@@ -23,7 +23,7 @@ const SubmiteForm = () => {
       // Convert the file to a byte array
       const reader = new FileReader();
       reader.readAsArrayBuffer(file);
-      reader.onload = () => {
+      reader.onload = async () => {
         const fileContent = new Uint8Array(reader.result as ArrayBuffer);
 
         const data = {
@@ -31,7 +31,16 @@ const SubmiteForm = () => {
           fileContent: Array.from(fileContent), // Convert Uint8Array to a regular array
         };
 
-        const response = axios.post("http://localhost:8080/api/files", data);
+        const response = await axios.post("http://localhost:8080/api/files", data);
+        if (!response.status) {
+          throw new Error("Failed to Upload File");
+        }
+    
+        const newFile: MediaFile = await response.data;
+        //setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
+        console.log(newFile);
+
+
       };
     } catch (error) {
       console.error("Error uploading file:", error);
