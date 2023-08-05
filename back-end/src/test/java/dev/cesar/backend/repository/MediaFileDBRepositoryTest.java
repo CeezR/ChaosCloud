@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +43,20 @@ class MediaFileDBRepositoryTest {
         assertThat(mediaFile.getStorageFileName());
         assertThat(UUID_REGEX.matcher(mediaFile.getStorageFileName()).matches()).isTrue();
     }
+
+    @Test
+    void successfulSaveShouldReturnMediaFileWithPostedDateAsCurrentDate() {
+        Date currentDate = new Date();
+
+        MediaFile mediaFile = repo.save(new MediaFile("test", ".txt"));
+
+        assertThat(mediaFile).isNotNull();
+        assertThat(mediaFile.getCreatedDate()).isCloseTo(currentDate, 10000l);
+    }
+
+
+
+
 
 
 }
