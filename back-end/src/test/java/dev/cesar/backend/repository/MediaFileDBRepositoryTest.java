@@ -56,8 +56,6 @@ class MediaFileDBRepositoryTest {
 
     @Test
     void successfulSaveShouldReturnMediaFileWithPostedByAsUnknownWhenNoNameIsProvided() {
-        Date currentDate = new Date();
-
         MediaFile mediaFile = repo.save(new MediaFile("test", ".txt"));
 
         assertThat(mediaFile).isNotNull();
@@ -66,8 +64,6 @@ class MediaFileDBRepositoryTest {
 
     @Test
     void successfulSaveShouldReturnMediaFileWithPostedBy() {
-        Date currentDate = new Date();
-
         MediaFile mediaFile = repo.save(new MediaFile("test", ".txt", "John"));
 
         assertThat(mediaFile).isNotNull();
