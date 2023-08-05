@@ -2,7 +2,12 @@
 import React from "react";
 import SubmiteForm from "./SubmiteForm";
 
-const Navbar = () => {
+type NavbarProps = {
+  mediaFiles: MediaFile[];
+  setMediaFiles : React.Dispatch<React.SetStateAction<MediaFile[]>>
+}
+
+const Navbar = ({mediaFiles, setMediaFiles} : NavbarProps) => {
   return (
     <>
       <header className="bg-gray-50">
@@ -19,7 +24,7 @@ const Navbar = () => {
             </div>
 
             <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                <SubmiteForm />
+                <SubmiteForm mediaFiles={mediaFiles} setMediaFiles={setMediaFiles}/>
             </div>
           </div>
         </div>

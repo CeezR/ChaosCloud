@@ -1,16 +1,14 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import SubmiteForm from './SubmiteForm'
 import Navbar from './Navbar'
 import FileList from './FileList'
+import Home from './Home'
 
-export default async function Home() {
-
+export default async function page() {
   return (
     <>
-      <Navbar />
-      <main className='max-w-screen-xl mx-auto'>
-      </main>
+      <Home />
     </>
   )
 }

@@ -7,7 +7,12 @@ type requestDTO = {
   content: any;
 };
 
-const SubmiteForm = () => {
+type SubmiteProps = {
+  mediaFiles: MediaFile[];
+  setMediaFiles : React.Dispatch<React.SetStateAction<MediaFile[]>>
+}
+
+const SubmiteForm = ({setMediaFiles} : SubmiteProps) => {
   const [isSubmitBtnVisable, setIsSubmiteBtnVisable] = useState(false);
   const fileNameRef = useRef<HTMLSpanElement>(null);
 
@@ -37,7 +42,7 @@ const SubmiteForm = () => {
         }
     
         const newFile: MediaFile = await response.data;
-        //setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
+        setMediaFiles((mediaFiles) => [...mediaFiles, newFile]);
         console.log(newFile);
 
 
