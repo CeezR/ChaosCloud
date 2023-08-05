@@ -21,7 +21,7 @@ public class MediaFileService {
 
     public MediaFile store(String fileName, byte[] content) throws IOException {
         String fileExtension = fileName.substring(fileName.lastIndexOf("."));
-        MediaFile mediaFile = new MediaFile(fileName, fileExtension);
+        MediaFile mediaFile = new MediaFile(fileName, fileExtension, "john", content.length);
         Path filePath = staticPath.resolve(mediaFile.getFilePath());
         Files.write(filePath, content);
         return repo.save(mediaFile);
