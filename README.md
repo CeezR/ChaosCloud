@@ -37,3 +37,4 @@ Follow these steps to get the application up and running in your local environme
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ## 🌟 Project Reflection 🌟
+What to read about what I learned? [Google Docs Project Reflection](https://docs.google.com/document/d/1XruW-lL31coGSDElyNnX_lIqTRYIvUyMlWHzkOQY3Ss/edit#heading=h.uqn5helybhxk)
