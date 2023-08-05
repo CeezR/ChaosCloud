@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import UploadFileButton from "./UploadFileButton";
+import SubmiteForm from "./SubmiteForm";
 
 const Navbar = () => {
   return (
@@ -19,7 +20,7 @@ const Navbar = () => {
             </div>
 
             <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                <UploadFileButton />
+                <SubmiteForm />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import React from 'react'
 import SubmiteForm from './SubmiteForm'
 import Navbar from './Navbar'
 import FileList from './FileList'
+import UploadFileButton from './UploadFileButton'
 
 export default async function Home() {
 
@@ -10,7 +11,6 @@ export default async function Home() {
     <>
       <Navbar />
       <main className='max-w-screen-xl mx-auto'>
-        <FileList />
       </main>
     </>
   )
