@@ -1,6 +1,7 @@
 package dev.cesar.backend.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -11,6 +12,10 @@ public class MediaFile {
     private Long id;
     @Column(name = "file_name")
     private String fileName;
+
+    @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
     @Column(name = "storage_file_name", nullable = false)
     private String storageFileName = UUID.randomUUID().toString();
     @Column(name = "file_extension", nullable = false)
@@ -28,7 +33,9 @@ public class MediaFile {
     public Long getId() {
         return id;
     }
-
+    public Date getCreatedDate() {
+        return createdDate;
+    }
     public String getFileName() {
         return fileName;
     }
@@ -40,5 +47,12 @@ public class MediaFile {
     }
     public String getFileExtension() {
         return fileExtension;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdDate == null) {
+            createdDate = new Date();
+        }
     }
 }
