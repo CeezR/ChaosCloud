@@ -7,17 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -51,7 +44,6 @@ class ChaosCloudControllerTest {
     }
 
     @Test
-    @Order(1)
     void testPostMapping() throws Exception {
         String uri = "http://localhost:%s/api/files".formatted(port);
 
@@ -65,7 +57,6 @@ class ChaosCloudControllerTest {
     }
 
     @Test
-    @Order(2)
     void testGetAllFilesMapping() {
         String uri = "http://localhost:%s/api/files".formatted(port);
 
@@ -74,6 +65,23 @@ class ChaosCloudControllerTest {
         ResponseEntity<List<MediaFile>> response = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<MediaFile>>() {});
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.hasBody()).isTrue();
-        assertThat(response.getBody().size()).isEqualTo(1);
+    }
+
+    @Test
+    void testDownloadFilesMapping() throws IOException {
+        String uri = "http://localhost:%s/api/files".formatted(port);
+
+        Path sourceFilePath = TEST_FILES_PATH.resolve("test.pdf");
+        byte[] content = Files.readAllBytes(sourceFilePath);
+        MediaFileRequestDTO requestDTO = new MediaFileRequestDTO("test.pdf", content);
+        ResponseEntity<MediaFile> response = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(requestDTO), MediaFile.class);
+
+        String downloadUri = "http://localhost:%s/api/files/%s".formatted(port, response.getBody().getId());
+
+        ResponseEntity<MediaFileRequestDTO> downloadResponse = restTemplate.exchange(downloadUri, HttpMethod.GET, HttpEntity.EMPTY, MediaFileRequestDTO.class);
+
+        assertThat(downloadResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(downloadResponse.hasBody()).isNotNull();
+        assertThat(downloadResponse.getBody().fileName()).isEqualTo("test.pdf");
     }
 }

@@ -64,7 +64,7 @@ class MediaFileServiceTest {
         Path sourceFilePath = TEST_FILES_PATH.resolve(fileName);
         byte[] content = Files.readAllBytes(sourceFilePath);
         MediaFile mediaFile = mediaFileService.store(fileName, content);
-        byte[] readContent = mediaFileService.read(mediaFile);
+        byte[] readContent = mediaFileService.read(mediaFile.getFilePath());
 
         assertArrayEquals(content, readContent);
     }
