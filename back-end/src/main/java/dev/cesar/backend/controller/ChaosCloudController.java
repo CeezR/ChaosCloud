@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -36,5 +38,22 @@ public class ChaosCloudController {
     @GetMapping(path = "/files")
     public ResponseEntity<List<MediaFile>> getAllFiles() {
         return ResponseEntity.ok(repository.findAll());
+    }
+
+    @GetMapping(path = "/files/{id}")
+    public ResponseEntity<MediaFileRequestDTO> downloadFile(@PathVariable Long id) {
+        MediaFile mediaFile = repository.findById(id);
+        if(mediaFile == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] fileContent;
+        try {
+            fileContent = service.read(mediaFile.getFilePath());
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        return ResponseEntity.ok(new MediaFileRequestDTO(mediaFile.getFileName(), fileContent));
     }
 }

@@ -27,8 +27,8 @@ public class MediaFileService {
         return repo.save(mediaFile);
     }
 
-    public byte[] read(MediaFile mediaFile) throws IOException {
-        return Files.readAllBytes(staticPath.resolve(mediaFile.getFilePath()));
+    public byte[] read(String path) throws IOException {
+        return Files.readAllBytes(staticPath.resolve(path));
     }
 
     public void delete(MediaFile mediaFile) throws IOException {

@@ -24,6 +24,10 @@ public class MediaFileDBRepository {
         return Streamable.of(repo.findAll()).toList();
     }
 
+    public MediaFile findById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
     public void delete(MediaFile mediaFile) {
         repo.delete(mediaFile);
     }
