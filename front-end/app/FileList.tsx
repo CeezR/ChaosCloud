@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { formatFileSize } from "./helper";
 
 type FileListProps = {
   mediaFiles: MediaFile[];
@@ -50,7 +51,7 @@ const FileList = ({ mediaFiles }: FileListProps) => {
                     {file.createdDate.substring(0, file.createdDate.lastIndexOf("T"))}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                    {file.fileSize / 1024} KB
+                    {formatFileSize(file.fileSize)}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
                     <button
