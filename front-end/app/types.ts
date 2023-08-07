@@ -6,3 +6,8 @@ type MediaFile = {
     fileExtension : string,
     fileSize : number,
 }
+
+type MediaFileDownload = {
+    fileName : string,
+    fileContent : string
+}

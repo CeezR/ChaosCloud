@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { formatFileSize } from "./helper";
+import FileDownloadButton from "./FileDownloadButton";
 
 type FileListProps = {
   mediaFiles: MediaFile[];
@@ -35,9 +36,9 @@ const FileList = ({ mediaFiles }: FileListProps) => {
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {mediaFiles.map((file) => {
+            {mediaFiles.map((file, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {file.fileName.substring(0, file.fileName.lastIndexOf("."))}
                   </td>
@@ -54,26 +55,7 @@ const FileList = ({ mediaFiles }: FileListProps) => {
                     {formatFileSize(file.fileSize)}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
-                    <button
-                      type="button"
-                      className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-                    >
-                      <svg
-                        className="w-4 h-4 text-gray-800 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 16 18"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"
-                        />
-                      </svg>
-                    </button>
+                    <FileDownloadButton file={file}/>
                   </td>
                 </tr>
               );
